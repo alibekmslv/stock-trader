@@ -28,6 +28,10 @@ export default {
 
       state.funds += stockPrice * quantity
     },
+    SET_PORTFOLIO(state, { funds, stockPortfolio }) {
+      state.funds = funds
+      state.stocks = stockPortfolio ? stockPortfolio : []
+    },
   },
   actions: {
     sellStock({ commit }, order) {
@@ -48,6 +52,6 @@ export default {
     },
     funds(state) {
       return state.funds
-    }
+    },
   },
 }

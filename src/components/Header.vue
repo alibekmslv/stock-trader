@@ -11,14 +11,14 @@
       <router-link tag="li" active-class="active" to="/stocks" class="nav-item"><a class="nav-link">Stocks</a></router-link>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a href="#" class="nav-link">End day</a></li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item"><a href="#" @click.prevent="endDay" class="nav-link">End day</a></li>
+      <li class="nav-item dropdown" :class="{'show': isDropdownOpen}" @click="isDropdownOpen = !isDropdownOpen">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" :aria-expanded="isDropdownOpen">
           Save & Load
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Save Data</a>
-          <a class="dropdown-item" href="#">Load Data</a>
+        <div class="dropdown-menu" :class="{'show': isDropdownOpen}" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" @click.prevent="saveData">Save Data</a>
+          <a class="dropdown-item" href="#" @click.prevent="loadData">Load Data</a>
         </div>
       </li>
     </ul>
@@ -28,10 +28,37 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import axios from 'axios'
+
 export default {
+  data() {
+    return {
+      isDropdownOpen: false
+    }
+  },
   computed: {
+    ...mapGetters({
+      fundsState: 'funds',
+      stocks: 'stocks',
+      stockPortfolio: 'stockPortfolio'
+    }),
     funds() {
-      return this.$store.getters.funds
+      return this.fundsState
+    },
+  },
+  methods: {
+    ...mapActions(['randomStocks', 'loadData']),
+    endDay() {
+      this.randomStocks()
+    },
+    saveData() {
+      const data = {
+        funds: this.fundsState,
+        stockPortfolio: this.stockPortfolio,
+        stocks: this.stocks
+      }
+      axios.put('https://testing-ad90a.firebaseio.com/data.json', data)
     }
   }
 }
