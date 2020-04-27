@@ -6,11 +6,11 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav">
       <router-link tag="li" active-class="active" to="/portfolio" class="nav-item"><a class="nav-link">Portfolio</a></router-link>
       <router-link tag="li" active-class="active" to="/stocks" class="nav-item"><a class="nav-link">Stocks</a></router-link>
     </ul>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item"><a href="#" class="nav-link">End day</a></li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

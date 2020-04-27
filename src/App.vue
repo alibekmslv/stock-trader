@@ -2,7 +2,8 @@
   <div id="app" class="container p-3">
     <app-header></app-header>
 
-    <router-view></router-view>
+      <router-view></router-view>
+
   </div>
 </template>
 
